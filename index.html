@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBZB Pomodoro</title>
+  <title>BBZB Suchspiel Auswertung</title>
   <link rel="icon" type="image/png" href="icons/tomate.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="card">
+  <div class="card card--pink">
 
     <div class="titlebar">
       <div class="dots">
@@ -17,28 +17,40 @@
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      <span class="titlebar-text">POMODORO TIMER</span>
-      <img src="icons/tomate.png" class="titlebar-icon" alt="">
+      <span class="titlebar-text">auswertung.exe</span>
+      <span class="titlebar-close">&#x2715;</span>
     </div>
 
-    <div class="card-body">
+    <div class="card-body terminal">
 
-      <div class="phase-label" id="phase-label">WORK</div>
-      <div class="phase-progress" id="phase-progress"></div>
-
-      <div id="idle-view">
-        <img src="icons/tomate.png" class="hero-icon" id="hero-icon" alt="">
-        <button class="start-btn" id="start-btn">START</button>
+      <p class="term-line">c:\schulplaner &gt; suche_starten</p>
+      <p class="term-line">Durchsuche alle Seiten ...</p>
+      <div class="term-bar-row">
+        <div class="loadbar loadbar--boot"><div class="loadbar-fill"></div></div>
+        <span class="term-status">ok</span>
       </div>
 
-      <div id="running-view">
-        <img src="icons/tomate.png" class="hero-icon" id="running-icon" alt="">
-        <div class="timer-row">
-          <button class="btn-ctrl" id="pause-btn" title="Pause / Resume">II</button>
-          <div class="timer-display" id="timer-display">25:00</div>
-          <button class="btn-ctrl" id="skip-btn" title="Skip phase">&gt;&gt;</button>
-        </div>
+      <p class="term-section">&gt; ergebnis:</p>
+
+      <div class="term-row">
+        <img src="icons/cursor_icon.png" class="term-icon breathe" alt="">
+        <span class="term-label">cursor_gefunden</span>
+        <span class="term-eq">=</span>
+        <input type="number" id="input-cursor" class="term-input" min="0" max="99" placeholder="?">
       </div>
+      <div class="term-row">
+        <img src="icons/tomate.png" class="term-icon breathe" alt="">
+        <span class="term-label">tomaten_gefunden</span>
+        <span class="term-eq">=</span>
+        <input type="number" id="input-tomate" class="term-input" min="0" max="99" placeholder="?">
+      </div>
+
+      <p class="term-section">&gt; auswertung_laden...</p>
+      <div class="loadbar loadbar--loop" id="loadbar-loop"><div class="loadbar-fill"></div></div>
+
+      <button class="submit-btn" id="submit-btn">&gt;&gt; AUSWERTEN</button>
+
+      <div id="result" class="term-result"></div>
 
     </div>
   </div>

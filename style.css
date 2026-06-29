@@ -53,8 +53,6 @@ html, body {
 }
 
 /* ── Card fills the full iframe ── */
-/* Asymmetric border: blue top/left (light), pink right/bottom (shadow) —
-   matches the 3D raised-panel look from the Schulplaner popups */
 .card {
   display: flex;
   flex-direction: column;
@@ -105,8 +103,18 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ── Pink titlebar variant (.card--pink) ──
-   Uniform blue border, pink titlebar — for notifications / events */
+.titlebar-close {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--dark);
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px solid var(--dark);
+  padding: 2px 6px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ── Card variants ── */
 .card--pink {
   border: 4px solid var(--blue);
 }
@@ -118,8 +126,6 @@ html, body {
   border-color: var(--dark);
 }
 
-/* ── Yellow titlebar variant (.card--yellow) ──
-   Thicker uniform blue border, yellow titlebar — for info / QR / browser windows */
 .card--yellow {
   border: 5px solid var(--blue);
 }
@@ -134,27 +140,17 @@ html, body {
   border-color: var(--dark);
 }
 
-/* ── Yellow popup titlebar variant ──
-   Use on .card.card--popup for alert/QR/info windows.
-   Shadow side flips to blue to complement the yellow. */
 .card--popup {
   border-top:    4px solid var(--yellow);
   border-left:   4px solid var(--yellow);
   border-right:  4px solid var(--blue);
   border-bottom: 4px solid var(--blue);
 }
-.card--popup .titlebar {
-  background: var(--yellow);
-}
-.card--popup .titlebar-text {
-  color: var(--dark);
-}
-.card--popup .dot {
-  background: var(--blue);
-  border-color: var(--dark);
-}
+.card--popup .titlebar      { background: var(--yellow); }
+.card--popup .titlebar-text { color: var(--dark); }
+.card--popup .dot           { background: var(--blue); border-color: var(--dark); }
 
-/* ── Card body: cream bg + graph paper grid ── */
+/* ── Card body (default: cream + graph paper) ── */
 .card-body {
   flex: 1;
   padding: 18px 28px 22px;
@@ -169,110 +165,218 @@ html, body {
   background-size: 22px 22px;
 }
 
-/* ── Phase label ── */
-.phase-label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--blue);
-  letter-spacing: 4px;
-  text-align: center;
+/* ── Terminal body override ── */
+.card-body.terminal {
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: var(--blue-vivid);
+  background-image: none;
+  padding: 14px 18px 12px;
+  overflow-y: auto;
+  gap: 0;
+  /* Pink scrollbar thumb */
+  scrollbar-color: var(--pink) var(--blue-vivid);
+  scrollbar-width: thin;
+}
+
+/* ── Terminal text ── */
+.term-line {
+  font-size: 0.82rem;
+  color: var(--pink);
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+.term-section {
+  font-size: 0.82rem;
+  color: #FFFFFF;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Boot loading bar ── */
+.term-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.loadbar {
+  border: 2px solid var(--pink);
+  height: 18px;
+  width: 200px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.loadbar-fill {
+  height: 100%;
+  background: var(--pink);
+  width: 0;
+}
+
+@keyframes bootBar {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.loadbar--boot .loadbar-fill {
+  animation: bootBar 1.4s steps(18) forwards;
+}
+
+@keyframes loopBar {
+  0%   { width: 10%; }
+  50%  { width: 60%; }
+  100% { width: 10%; }
+}
+.loadbar--loop .loadbar-fill {
+  animation: loopBar 2.2s steps(12) infinite;
+}
+
+.loadbar--loop {
+  width: 100%;
   margin-bottom: 10px;
 }
 
-/* ── Progress dots ── */
-.phase-progress {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 18px;
+.term-status {
+  font-size: 0.82rem;
+  color: var(--pink);
+  opacity: 0;
+  animation: termFadeIn 0.1s 1.4s forwards;
 }
 
-.pdot {
-  width: 12px;
-  height: 12px;
-  border: 2px solid var(--blue);
-  background: var(--blue-light);
+@keyframes termFadeIn {
+  to { opacity: 1; }
+}
+
+/* ── Ergebnis rows ── */
+.term-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.term-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
-.pdot.done   { background: var(--blue); }
-.pdot.active { background: var(--pink); border-color: var(--pink); }
-
-/* ── Hero icon (phase-aware, shown in both views) ── */
-.hero-icon {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 18px;
+@keyframes breathe {
+  0%, 100% { filter: brightness(1)   drop-shadow(0 0 0px  var(--pink)); }
+  50%       { filter: brightness(1.3) drop-shadow(0 0 6px  var(--pink)); }
+}
+.breathe {
+  animation: breathe 2.5s ease-in-out infinite;
 }
 
-/* ── Idle view ── */
-#idle-view {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.term-label {
+  font-size: 0.82rem;
+  color: var(--pink);
+  flex: 1;
+  letter-spacing: 0.5px;
 }
 
-.start-btn {
-  font-family: var(--font);
-  font-size: 1.1rem;
-  font-weight: 700;
+.term-eq {
+  font-size: 0.82rem;
   color: #FFFFFF;
-  background: var(--pink);
-  border-top:    4px solid var(--dark);
-  border-left:   4px solid var(--dark);
-  border-right:  4px solid var(--pink);
-  border-bottom: 4px solid var(--pink);
-  box-shadow:
-    5px 5px 0 var(--dark),
-    inset 0 -6px 0 rgba(0, 0, 0, 0.28);
-  padding: 16px 44px;
-  cursor: pointer;
-  letter-spacing: 3px;
+  flex-shrink: 0;
 }
 
-.start-btn:hover {
-  background: var(--blue);
-  transform: translate(2px, 2px);
-  box-shadow:
-    3px 3px 0 var(--dark),
-    inset 0 -5px 0 rgba(0, 0, 0, 0.28);
+.term-input {
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: 62px;
+  text-align: center;
+  background: var(--cream);
+  color: var(--dark);
+  border-top:    3px solid var(--blue);
+  border-left:   3px solid var(--blue);
+  border-right:  3px solid var(--pink);
+  border-bottom: 3px solid var(--pink);
+  padding: 6px 2px;
+  flex-shrink: 0;
+  -moz-appearance: textfield;
+}
+.term-input::-webkit-inner-spin-button,
+.term-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.term-input::placeholder { color: rgba(26,26,46,0.4); }
+.term-input:focus {
+  outline: none;
+  border-color: var(--yellow);
 }
 
-.start-btn:active {
-  transform: translate(5px, 5px);
-  box-shadow:
-    0 0 0 var(--dark),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.28);
-}
-
-/* ── Running view ── */
-#running-view {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-}
-
-#running-view.visible { display: flex; }
-
-.timer-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.timer-display {
-  font-size: clamp(2.4rem, 9vw, 3.4rem);
+/* ── Submit button ── */
+.submit-btn {
+  font-family: var(--font);
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--dark);
-  letter-spacing: 4px;
-  min-width: 5.5ch;
-  text-align: center;
-  flex-shrink: 0;
+  background: var(--pink);
+  border-top:    3px solid var(--dark);
+  border-left:   3px solid var(--dark);
+  border-right:  3px solid rgba(0,0,0,0.4);
+  border-bottom: 3px solid rgba(0,0,0,0.4);
+  box-shadow:
+    3px 3px 0 var(--dark),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.25);
+  padding: 10px 0;
+  width: 100%;
+  cursor: pointer;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
-/* Control buttons (matches Schulplaner Zurücksetzen / X / □ buttons):
-   asymmetric raised panel + darker bottom depth band */
+.submit-btn:hover {
+  background: var(--yellow);
+  transform: translate(1px, 1px);
+  box-shadow:
+    2px 2px 0 var(--dark),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25);
+}
+
+.submit-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow:
+    0 0 0 var(--dark),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ── Result output ── */
+.term-result {
+  display: none;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  white-space: pre-line;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.term-result.result--ok    { color: #5FFF99; }
+.term-result.result--error { color: #FF6688; }
+
+/* ── Footer ── */
+.term-footer {
+  font-size: 0.55rem;
+  color: var(--pink);
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 8px;
+  line-height: 1.6;
+}
+
+.term-footer strong {
+  color: #FFFFFF;
+}
+
+/* ── Reusable control button (kept for future use) ── */
 .btn-ctrl {
   font-family: var(--font);
   font-size: 1rem;
