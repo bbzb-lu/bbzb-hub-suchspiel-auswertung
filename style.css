@@ -643,7 +643,7 @@ html, body {
 
 /* ── Terminal-Text ── */
 .term-line {
-  font-size: clamp(0.5rem, 2.2vh, 0.82rem);
+  font-size: clamp(0.64rem, 4vh, 1.15rem);
   color: var(--pink);
   line-height: 1.4;
   letter-spacing: 0.5px;
@@ -660,7 +660,7 @@ html, body {
 
 .loadbar {
   border: 2px solid var(--pink);
-  height: clamp(9px, 3.6vh, 16px);
+  height: clamp(10px, 4vh, 18px);
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -681,7 +681,7 @@ html, body {
 }
 
 .term-status {
-  font-size: clamp(0.5rem, 2.2vh, 0.82rem);
+  font-size: clamp(0.64rem, 4vh, 1.15rem);
   color: var(--pink);
   flex-shrink: 0;
   opacity: 0;
@@ -696,7 +696,7 @@ html, body {
 
 /* ── Ergebnisausgabe ── */
 .term-result {
-  font-size: clamp(0.5rem, 2.3vh, 0.82rem);
+  font-size: clamp(0.66rem, 4.2vh, 1.2rem);
   line-height: 1.5;
   white-space: pre-line;
   letter-spacing: 0.5px;
