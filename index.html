@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BBZB Suchspiel Auswertung</title>
-  <link rel="icon" type="image/png" href="icons/tomate.png">
+  <link rel="icon" type="image/png" href="icons/glühbirne_icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,36 +21,61 @@
       <span class="titlebar-close">&#x2715;</span>
     </div>
 
-    <div class="card-body terminal">
+    <div class="card-body">
 
-      <p class="term-line">c:\schulplaner &gt; suche_starten</p>
-      <p class="term-line">Durchsuche alle Seiten ...</p>
-      <div class="term-bar-row">
-        <div class="loadbar loadbar--boot"><div class="loadbar-fill"></div></div>
-        <span class="term-status">ok</span>
+      <!-- Screen 1: Titelbildschirm — Icon, Titel, ein Satz, eine CTA -->
+      <div id="start-screen" class="ts">
+        <div class="ts-inner">
+          <img class="ts-icon" src="icons/glühbirne_icon.png" alt="">
+          <div class="ts-title">AUSWERTUNG</div>
+          <div class="ts-sub">Trag ein, wie viele Symbole du im Schulplaner gefunden hast &ndash; und sieh nach, ob es stimmt.</div>
+          <div class="ts-cta">
+            <button class="ts-btn ts-btn--primary" id="start-btn">AUSWERTEN</button>
+          </div>
+        </div>
       </div>
 
-      <p class="term-section">&gt; ergebnis:</p>
+      <!-- Screen 2: Schritt 2 — die gefundenen Anzahlen -->
+      <div id="input-screen" class="ts" style="display:none">
+        <div class="ts-inner ts-inner--step">
 
-      <div class="term-row">
-        <img src="icons/cursor_icon.png" class="term-icon breathe" alt="">
-        <span class="term-label">cursor_gefunden</span>
-        <span class="term-eq">=</span>
-        <input type="number" id="input-cursor" class="term-input" min="0" max="99" placeholder="?">
+          <div class="ts-step-head">
+            <button class="ts-back" id="input-back">&#9664;</button>
+            <span class="ts-step-title">GEFUNDEN</span>
+          </div>
+
+          <div class="ts-row">
+            <img class="ts-row-icon breathe" src="icons/cursor_icon.png" alt="">
+            <span class="ts-label">CURSOR</span>
+            <input class="ts-input ts-input--num" type="number" id="input-cursor"
+                   min="0" max="99" placeholder="?" inputmode="numeric" autocomplete="off">
+          </div>
+
+          <div class="ts-row">
+            <img class="ts-row-icon breathe" src="icons/tomate.png" alt="">
+            <span class="ts-label">TOMATEN</span>
+            <input class="ts-input ts-input--num" type="number" id="input-tomate"
+                   min="0" max="99" placeholder="?" inputmode="numeric" autocomplete="off">
+          </div>
+
+          <button class="ts-btn ts-btn--primary" id="check-btn">&gt;&gt; PR&Uuml;FEN</button>
+
+          <div class="ts-note" id="input-error"></div>
+
+        </div>
       </div>
-      <div class="term-row">
-        <img src="icons/tomate.png" class="term-icon breathe" alt="">
-        <span class="term-label">tomaten_gefunden</span>
-        <span class="term-eq">=</span>
-        <input type="number" id="input-tomate" class="term-input" min="0" max="99" placeholder="?">
+
+      <!-- Ergebnis-Overlay: Terminal-Ausgabe über dem Karteninhalt -->
+      <div id="result-screen">
+        <p class="term-line">c:\schulplaner &gt; auswertung</p>
+        <div class="term-bar-row">
+          <div class="loadbar loadbar--boot" id="loadbar-boot"><div class="loadbar-fill"></div></div>
+          <span class="term-status" id="term-status">ok</span>
+        </div>
+        <p class="term-line term-line--white">&gt; ergebnis:</p>
+        <div id="result" class="term-result"></div>
+        <button class="ts-btn" id="result-back">&#9664; NOCHMAL</button>
       </div>
-
-      <p class="term-section">&gt; auswertung_laden...</p>
-      <div class="loadbar loadbar--loop" id="loadbar-loop"><div class="loadbar-fill"></div></div>
-
-      <button class="submit-btn" id="submit-btn">&gt;&gt; AUSWERTEN</button>
-
-      <div id="result" class="term-result"></div>
 
     </div>
   </div>
