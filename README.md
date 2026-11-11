@@ -1,5 +1,7 @@
 # BBZB Suchspiel-Auswertung
 
+> **Umgezogen (11.11.2026):** Dieses Embed liegt jetzt im Repo [bbzb-lu/bbzb-tools](https://github.com/bbzb-lu/bbzb-tools/tree/main/embeds/suchspiel-auswertung/) unter `embeds/suchspiel-auswertung/` und läuft unter https://bbzb-tools.pages.dev/sharepoint/suchspiel-auswertung/. Dieses Repo wird archiviert und nicht mehr gepflegt.
+
 Auswertung zum Schulplaner-Suchspiel: gefundene Symbole eintragen und sofort prüfen lassen.
 
 ## In SharePoint einbetten
